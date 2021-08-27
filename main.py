@@ -1,4 +1,5 @@
 import logging
+import os
 from datetime import datetime
 
 import altair
@@ -8,7 +9,7 @@ import streamlit as st
 from index_analyzer.index_data import IndexDataProvider
 
 
-def show_index_price_chart(result):
+def show_index_time_series(result):
     if result.empty:
         st.write('No data found.')
         return
@@ -30,13 +31,18 @@ def show_index_price_chart(result):
     st.altair_chart(hist_chart, use_container_width=True)
 
 
-def display_index_data(data_provider, index_name, start_date, end_date):
+def index_time_series(data_provider, index_name, **kwargs):
+    start_date = kwargs['start_date']
+    end_date = kwargs['end_date']
+
     logging.info("Getting data for index: %s, from %s to %s",
                  index_name, start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))
     result = data_provider.get_index_data(index_name, start_date, end_date)
-    show_index_price_chart(result)
-    summary = data_provider.get_components_overview(index_name)
+    show_index_time_series(result)
 
+
+def index_components(data_provider, index_name, **kwargs):
+    summary = data_provider.get_components_overview(index_name)
     if not summary.empty:
         def highlight_change(value):
             value = str(value)
@@ -46,14 +52,48 @@ def display_index_data(data_provider, index_name, start_date, end_date):
         summary = summary.style.applymap(highlight_change, subset=['change', 'change_percentage'])
         st.write(summary)
 
-    st.title(index_name)
+
+def index_weightings(data_provider, index_name, **kwargs):
+    st.dataframe(data_provider.get_weightings(index_name))
 
 
-def main():
-    data_provider = IndexDataProvider(country='netherlands')
+def index_sector_weightings(data_provider, index_name, **kwargs):
+    st.dataframe(data_provider.get_sector_weightings(index_name))
+
+
+def display_index_data(data_provider, view_type, index_name, start_date, end_date):
+    """Calls the appropriate 'handler function' based on ``view_type``. The handler function implements one of the
+    possible views for the different index related datasets, such as
+
+    * time series plot of OHLC values per date
+    * Details about each component stock such as prices, percentage change etc.
+    * Per component weighting
+    * Sector based weighting
+
+    the handler functions fetch the data for the given index using the ``index_provider`` and display the data in the
+    most appropriate format.
+    """
+    handlers = {
+        'Time Series': index_time_series,
+        'Components': index_components,
+        'Weightings': index_weightings,
+        'Sector Weightings': index_sector_weightings
+    }
+    if view_type not in handlers:
+        logging.warning('View %s not supported, must be one of %s', view_type, list(handlers.keys()))S
+        return
+
+    handlers[view_type](data_provider, index_name, start_date=start_date, end_date=end_date)
+    st.title(f"{index_name}: {view_type}")
+
+
+def main(country_code):
+    country_code = country_code.upper()
+    logging.info("Running for country %s", country_code)
+    data_provider = IndexDataProvider(country_code=country_code)
     index_names = data_provider.get_available_indices()
 
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
         index_name = st.selectbox("Select index", index_names)
     with col2:
@@ -69,13 +109,20 @@ def main():
             value=datetime.utcnow()
         )
 
+    with col4:
+        view_type = st.selectbox(
+            'View',
+            ['Time Series', 'Components', 'Weightings', 'Sector Weightings']
+        )
+
     st.button(
-        label='Get Details',
+        label='Run',
         on_click=display_index_data,
-        args=[data_provider, index_name, start_date, end_date]
+        args=[data_provider, view_type, index_name, start_date, end_date],
     )
 
 
 if __name__ == '__main__':
+    country_code = os.environ.get('TARGET_COUNTRY', 'DE')
     logging.basicConfig(level=logging.INFO)
-    main()
+    main(country_code)
