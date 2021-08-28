@@ -26,7 +26,7 @@ resources:
         - index-analyzer-web
 
 # Allow TCP traffic to port 8080 of the compute engine VM from anywhere
-- name: create index-analyzer-web-ingress
+- name: index-analyzer-web-ingress
   type: compute.v1.firewall
   properties:
     network: https://www.googleapis.com/compute/v1/projects/myproject/global/networks/default
