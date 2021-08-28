@@ -29,7 +29,7 @@ resources:
 - name: index-analyzer-web-ingress
   type: compute.v1.firewall
   properties:
-    network: https://www.googleapis.com/compute/v1/projects/myproject/global/networks/default
+    network: https://www.googleapis.com/compute/v1/projects/index-324310/global/networks/default
     targetTags: [ "index-analyzer-web" ]
     sourceRanges: [ "0.0.0.0/0" ]
     allowed:
