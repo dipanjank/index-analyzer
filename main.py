@@ -80,7 +80,7 @@ def display_index_data(data_provider, view_type, index_name, start_date, end_dat
         'Sector Weightings': index_sector_weightings
     }
     if view_type not in handlers:
-        logging.warning('View %s not supported, must be one of %s', view_type, list(handlers.keys()))S
+        logging.warning('View %s not supported, must be one of %s', view_type, list(handlers.keys()))
         return
 
     handlers[view_type](data_provider, index_name, start_date=start_date, end_date=end_date)
