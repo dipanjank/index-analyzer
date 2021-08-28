@@ -1,31 +1,31 @@
 Company,Sector,Ticker,Weighting
-Adidas,Footwear,ADS.DE,4.91
-Allianz,Financial Services,ALV.DE,7.22
-BASF,Basic Materials,BAS.DE,4.89
-Bayer,Healthcare,BAYN.DE,5.52
-BMW,Automobile,BMW.DE,2.00
-Continental,Automotive,CON.DE,0.99
-Covestro,Basic Materials,1COV.DE,0.81
-Daimler,Automobile,DAI.DE,3.84
-Delivery Hero,Online Food Ordering,DHER.DE,1.28
-Deutsche Bank,Financial Services,DBK.DE,1.56
-Deutsche Börs,Financial Services,DB1.DE,2.67
-Deutsche Post,Industrials,DPW.DE,3.91
-Deutsche Telekom,Communication Services,DTE.DE,4.93
-Deutsche Wohnen,Real Estate,DWNI.DE,1.41
-E.ON,Utilities,EOAN.DE,2.10
-Fresenius,Healthcare,FRE.DE,1.63
-Fresenius Medical Care,Healthcare,FME.DE,1.44
-HeidelbergCement,Basic Materials,HEI.DE,0.78
-Henkel,Consumer Goods,HEN3.DE,1.53
-Infineon Technologies,Technology,IFX.DE,3.06
-Linde,Basic Materials,LIN.DE,10.47
-Merck,Healthcare,MRK.DE,1.61
-MTU Aero Engines,Industrials,MTX.DE,0.80
-Munich Re,Financial Services,MUV2.DE,3.31
-RWE,Utilities,RWE.DE,1.91
-SAP,Technology,SAP.DE,10.18
-Siemens,Industrials,SIE.DE,8.65
-Siemens Energy,Energy technology,ENR.DE,
-Volkswagen Group,Automobile,VOW3.DE,2.55
-Vonovia,Real Estate,VNA.DE,3.11
+Adidas,Footwear,ADSGN,4.91
+Allianz,Financial Services,ALVG,7.22
+BASF,Basic Materials,BASFn,4.89
+Bayer,Healthcare,BAYGN,5.52
+BMW,Automobile,BMWG,2.00
+Continental,Automotive,CONG,0.99
+Covestro,Basic Materials,1COV,0.81
+Daimler,Automobile,DAIGN,3.84
+Delivery Hero,Online Food Ordering,DHER,1.28
+Deutsche Bank,Financial Services,DBKGN,1.56
+Deutsche Börs,Financial Services,DB1GN,2.67
+Deutsche Post,Industrials,DPWGN,3.91
+Deutsche Telekom,Communication Services,DTEGN,4.93
+Deutsche Wohnen,Real Estate,DWNI,1.41
+E.ON,Utilities,EONGN,2.10
+Fresenius,Healthcare,FRE,1.63
+Fresenius Medical Care,Healthcare,FME,1.44
+HeidelbergCement,Basic Materials,HEI,0.78
+Henkel,Consumer Goods,HEN3,1.53
+Infineon Technologies,Technology,IFX,3.06
+Linde,Basic Materials,LIN,10.47
+Merck,Healthcare,MRCG,1.61
+MTU Aero Engines,Industrials,MTX,0.80
+Munich Re,Financial Services,MUV2,3.31
+RWE,Utilities,RWE,1.91
+SAP,Technology,SAPG,10.18
+Siemens,Industrials,SIEGN,8.65
+Siemens Energy,Energy technology,ENR,
+Volkswagen Group,Automobile,VOWG,2.55
+Vonovia,Real Estate,VNA,3.11

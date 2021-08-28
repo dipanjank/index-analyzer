@@ -51,6 +51,20 @@ class IndexDataProvider:
             data_df.index = data_df.index.strftime('%Y/%m/%d')
         return data_df
 
+    def preprocess_tickers(self, tickers):
+        def remove_suffix(ticker):
+            if ticker.endswith('Gn'):
+                return ticker[:-2]
+            elif ticker.endswith('G'):
+                return ticker[:-1]
+            else:
+                return ticker
+
+        if self._country == 'germany':
+            return tickers.map(remove_suffix)
+        else:
+            return tickers
+
     def get_components_overview(self, index_name):
         index_data = get_index_data(index_name)
         if index_data.empty:
@@ -60,7 +74,7 @@ class IndexDataProvider:
         tickers = index_data.loc[:, 'Ticker'].tolist()
         overview = investpy.get_stocks_overview(country=self._country)
         overview.loc[:, 'symbol'] = overview.symbol.str.upper()
-        overview = overview.loc[overview.symbol.isin(tickers), :]
+        overview = overview.loc[overview.symbol.isin(tickers), :].reset_index(drop=True)
         return overview
 
     def get_weightings(self, index_name):

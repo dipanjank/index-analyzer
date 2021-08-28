@@ -61,7 +61,7 @@ def index_sector_weightings(data_provider, index_name, **kwargs):
     st.dataframe(data_provider.get_sector_weightings(index_name))
 
 
-def display_index_data(data_provider, view_type, index_name, start_date, end_date):
+def display_index_data(data_provider, index_name, start_date, end_date):
     """Calls the appropriate 'handler function' based on ``view_type``. The handler function implements one of the
     possible views for the different index related datasets, such as
 
@@ -79,6 +79,8 @@ def display_index_data(data_provider, view_type, index_name, start_date, end_dat
         'Weightings': index_weightings,
         'Sector Weightings': index_sector_weightings
     }
+    view_type = st.session_state.get('view_type')
+
     if view_type not in handlers:
         logging.warning('View %s not supported, must be one of %s', view_type, list(handlers.keys()))
         return
@@ -110,16 +112,13 @@ def main(country_code):
         )
 
     with col4:
-        view_type = st.selectbox(
+        st.selectbox(
             'View',
-            ['Time Series', 'Components', 'Weightings', 'Sector Weightings']
+            ['Time Series', 'Components', 'Weightings', 'Sector Weightings'],
+            key='view_type',
+            on_change=display_index_data,
+            args=[data_provider, index_name, start_date, end_date],
         )
-
-    st.button(
-        label='Run',
-        on_click=display_index_data,
-        args=[data_provider, view_type, index_name, start_date, end_date],
-    )
 
 
 if __name__ == '__main__':
